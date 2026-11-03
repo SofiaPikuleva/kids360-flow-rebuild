@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Growth Audit — Kids360</title>
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: only light;
+  /* ---- Kids360, extracted from their live screens ---- */
+  --k-bg:#F3F0F7; --k-card:#FFFFFF; --k-ink:#41456D; --k-mute:#8C8EA8; --k-purple:#805ECE; --k-purple2:#6B4BC0;
+  --k-off:#CFCDDC; --k-line:#E4E0F1; --k-gold:#FFC93C; --k-green:#2DC28C; --k-g1:#946FF2; --k-g2:#7656D4; --k-g3:#563CB9;
+  /* ---- the report shell, in Kids360's own palette ---- */
+  --bg:#F6F4FA; --surf:#FFFFFF; --surf2:#ECE7F7;
+  --hair:rgba(65,69,109,.11); --hair2:rgba(65,69,109,.2);
+  --ink:#2E3158; --ink2:#53577E; --ink3:#868AA6;
+  --accent:#805ECE; --accent-lift:#6B4BC0; --on-accent:#FFFFFF;
+  --panel:#3A2B78; --panel-ink:#FFFFFF; --panel-muted:#B6A8E6; --panel-line:rgba(255,255,255,.14);
+  --accent-ink:#FFD25A;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Lato',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+@media(max-width:700px){.wrap{padding:0 20px}}
+.nav{position:sticky;top:0;z-index:70;background:rgba(246,244,250,.86);backdrop-filter:blur(18px) saturate(160%);border-bottom:1px solid var(--hair)}
+.nav-in{max-width:1080px;margin:0 auto;padding:0 32px;height:58px;display:flex;align-items:center;gap:18px}
+@media(max-width:700px){.nav-in{padding:0 20px;gap:12px}}
+.nav-brand{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:700}
+.nav-brand .mk{width:28px;height:28px;flex:none;display:block;border-radius:7px;overflow:hidden;background:#fff}
+.nav-brand .mk img{width:28px;height:28px;display:block}
+.nav-brand span{color:var(--ink2);font-weight:400}
+.nav-links{margin-left:auto;display:flex;gap:2px}
+.nav-links button{padding:7px 14px;border-radius:8px;font-size:13.5px;font-weight:700;color:var(--ink3)}
+.nav-links button:hover{color:var(--ink)}
+.nav-links button.on{color:var(--ink);background:var(--surf2)}
+@media(max-width:640px){.nav-brand span{display:none}}
+.view{display:none}.view.on{display:block}
+.hero{padding:104px 0 0;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-380px;left:50%;transform:translateX(-50%);width:1100px;height:680px;border-radius:50%;pointer-events:none;background:radial-gradient(closest-side,rgba(128,94,206,.2),rgba(128,94,206,.07) 60%,transparent 76%)}
+.hero>*{position:relative;z-index:1}
+.eyebrow{font-size:11.5px;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-lift);margin-bottom:26px}
+.hero h1{font-size:80px;line-height:.98;font-weight:900;letter-spacing:-.03em;margin:0 0 24px;color:var(--k-ink)}
+@media(max-width:820px){.hero h1{font-size:54px}.hero{padding-top:70px}}
+.hero .lede{font-size:20px;line-height:1.5;color:var(--ink2);max-width:600px;margin:0 auto}
+@media(max-width:820px){.hero .lede{font-size:17px}}
+.hero .meta{margin-top:30px;font-size:13px;color:var(--ink3)}
+.hero .meta b{color:var(--ink2);font-weight:700}
+.stats{display:flex;justify-content:center;margin:70px auto 0;max-width:760px;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.stat{flex:1;padding:26px 14px;text-align:center;border-left:1px solid var(--hair)}
+.stat:first-child{border-left:none}
+.stat b{display:block;font-size:27px;font-weight:900;letter-spacing:-.02em}
+.stat span{display:block;font-size:12px;color:var(--ink3);margin-top:5px;line-height:1.35}
+@media(max-width:700px){.stat b{font-size:20px}.stat{padding:18px 8px}}
+.fb{max-width:760px;margin:0 auto;padding:30px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:26px;text-align:left}
+@media(max-width:700px){.fb{grid-template-columns:1fr;gap:20px;padding-top:24px}}
+.fb-k{grid-column:1/-1;font-size:10.5px;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);text-align:center;margin-bottom:-6px}
+.fb-i{display:flex;gap:12px;align-items:flex-start}
+.fb-i .tick{width:18px;height:18px;flex:none;margin-top:3px;border-radius:50%;background:rgba(128,94,206,.16);display:grid;place-items:center}
+.fb-i .tick svg{width:10px;height:10px;stroke:var(--accent-lift);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.fb-i p{font-size:14.5px;line-height:1.55;color:var(--ink2)}
+.fb-i p b{color:var(--ink);font-weight:900}
+.sec{padding:96px 0}
+.sec-k{font-size:11.5px;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);margin-bottom:18px}
+.sec h2{font-size:38px;line-height:1.16;font-weight:900;letter-spacing:-.02em;margin:0 0 20px;max-width:680px;color:var(--k-ink)}
+@media(max-width:820px){.sec h2{font-size:29px}.sec{padding:64px 0}}
+.sec p.body{font-size:17px;line-height:1.66;color:var(--ink2);max-width:640px;margin:0 0 18px}
+.sec p.body b{color:var(--ink);font-weight:700}
+.rule{height:1px;background:var(--hair)}
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px;max-width:820px}
+@media(max-width:760px){.notes{grid-template-columns:1fr}}
+.note{background:var(--surf);border:1px solid var(--hair);border-radius:20px;padding:24px 26px}
+.note h4{font-size:16px;font-weight:900;margin:0 0 8px}
+.note p{font-size:14.5px;line-height:1.6;color:var(--ink2)}
+.ideas{display:flex;flex-direction:column;margin-top:14px;border-top:1px solid var(--hair)}
+.idea{display:grid;grid-template-columns:52px 1fr 180px;gap:26px;align-items:start;padding:30px 4px;border-bottom:1px solid var(--hair);text-align:left;width:100%;transition:.18s}
+.idea:hover{background:rgba(128,94,206,.05)}
+@media(max-width:780px){.idea{grid-template-columns:38px 1fr;gap:16px}}
+.idea .no{font-size:13px;font-weight:900;color:var(--ink3);padding-top:4px}
+.idea h3{font-size:22px;line-height:1.25;font-weight:900;letter-spacing:-.015em;margin:0 0 7px}
+@media(max-width:820px){.idea h3{font-size:18.5px}}
+.idea p{font-size:15px;line-height:1.6;color:var(--ink2);max-width:540px}
+.idea .out{text-align:right;padding-top:3px}
+@media(max-width:780px){.idea .out{grid-column:2;text-align:left;padding-top:12px}}
+.idea .out b{display:block;font-size:19px;font-weight:900;letter-spacing:-.015em;color:var(--accent-lift);white-space:nowrap}
+.idea .out span{display:block;font-size:10.5px;color:var(--ink3);margin-top:3px;letter-spacing:.04em;text-transform:uppercase;font-weight:700}
+.idea .seeit{display:inline-flex;align-items:center;gap:5px;margin-top:11px;font-size:13px;font-weight:700;color:var(--accent-lift)}
+.idea .seeit svg{width:12px;height:12px}
+.band{background:linear-gradient(200deg,var(--k-g1),var(--k-g3));color:#fff;border-radius:28px;padding:40px 44px;margin-top:44px;display:flex;align-items:center;gap:36px;flex-wrap:wrap}
+@media(max-width:700px){.band{padding:28px 24px;gap:22px}}
+.band .lab{font-size:11.5px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:#DCD0FF;margin-bottom:10px}
+.band .txt{flex:1;min-width:240px}
+.band .txt p{font-size:16px;line-height:1.6;color:#F1ECFF}
+.band .nums{display:flex;gap:34px}
+.band .nums div b{display:block;font-size:32px;font-weight:900;letter-spacing:-.02em;color:var(--k-gold)}
+.band .nums div span{display:block;font-size:11px;color:#DCD0FF;margin-top:2px;letter-spacing:.04em;text-transform:uppercase;font-weight:700}
+.cta-row{display:flex;justify-content:center;align-items:center;gap:22px;flex-wrap:wrap;margin-top:52px}
+.bigbtn{display:inline-flex;align-items:center;gap:9px;background:var(--k-purple);color:#fff;font-size:16px;font-weight:700;padding:16px 28px;border-radius:14px}
+.bigbtn:hover{filter:brightness(1.06)}
+.bigbtn svg{width:15px;height:15px}
+.foot{border-top:1px solid var(--hair);padding:36px 0 70px;font-size:13px;line-height:1.6;color:var(--ink3)}
+.herobtns{display:flex;justify-content:center;margin-top:30px}
+.ghostbtn{display:inline-flex;align-items:center;gap:10px;background:var(--surf);border:1px solid var(--hair2);font-size:14.5px;font-weight:700;padding:9px 20px 9px 9px;border-radius:30px}
+.ghostbtn .pl{width:30px;height:30px;border-radius:50%;background:var(--accent);display:grid;place-items:center}
+.ghostbtn .pl svg{width:12px;height:12px;fill:#fff;margin-left:2px}
+
+/* ============ prototype stage ============ */
+.stage{display:grid;grid-template-columns:minmax(440px,1fr) minmax(400px,470px);align-items:start;min-height:calc(100vh - 58px)}
+@media(max-width:1080px){.stage{grid-template-columns:1fr}}
+.phonecol{padding:34px 24px 46px;display:flex;flex-direction:column;align-items:center;gap:18px}
+.panelcol{background:var(--panel);color:var(--panel-ink);min-height:calc(100vh - 58px);position:sticky;top:58px;max-height:calc(100vh - 58px);overflow-y:auto}
+@media(max-width:1080px){.panelcol{position:static;max-height:none}}
+.phone{position:relative;width:390px;height:844px;flex:none;background:#000;border:11px solid #111;border-radius:46px;box-shadow:0 0 0 1.5px #D3CCE6,0 34px 70px -24px rgba(58,43,120,.38)}
+.phone-in{position:absolute;inset:0;border-radius:36px;overflow:hidden;background:var(--k-bg)}
+.island{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:104px;height:30px;background:#000;border-radius:16px;z-index:60;pointer-events:none}
+.sbar{position:absolute;top:0;left:0;right:0;height:50px;z-index:55;pointer-events:none;display:flex;align-items:center;justify-content:space-between;padding:14px 28px 0 34px;font:700 15px/1 -apple-system,'Lato',sans-serif;color:#111}
+.sbar.light{color:#fff}
+.sbar .glyphs{display:flex;gap:5px;align-items:center}
+.homebar{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#111;z-index:56;pointer-events:none}
+.homebar.light{background:rgba(255,255,255,.9)}
+.screenwrap{position:absolute;inset:0;overflow:hidden;background:var(--k-bg)}
+
+/* ============ phone screens — Kids360's system, all prefixed scr-/k- ============ */
+.scr{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--k-bg);color:var(--k-ink);font-family:'Lato',-apple-system,sans-serif;
+  transform:translateX(100%);transition:transform .36s cubic-bezier(.32,.72,0,1);z-index:10;will-change:transform;overflow:hidden}
+.scr.is-active{transform:translateX(0);z-index:20}
+.scr.is-past{transform:translateX(-24%)}
+.scr.sheet{transform:translateY(100%);background:transparent}
+.scr.sheet.is-active{transform:translateY(0);z-index:30}
+.scr.nofx{transition:none}
+.scr-top{flex:none;position:relative;z-index:2}
+.scr-body{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:0 20px;scrollbar-width:none;position:relative;z-index:2}
+.scr-body::-webkit-scrollbar{display:none}
+.scr-foot{flex:none;padding:10px 20px 34px;position:relative;z-index:2}
+.k-btn{display:block;width:100%;height:54px;border-radius:12px;background:var(--k-purple);color:#fff;font:700 20px/1 'Lato',sans-serif}
+.k-btn[disabled]{background:var(--k-off);cursor:default}
+.k-h{font:900 26px/1.22 'Lato',sans-serif;color:var(--k-ink);text-align:center;letter-spacing:-.005em}
+.k-s{font:400 17px/1.4 'Lato',sans-serif;color:var(--k-ink);text-align:center;margin-top:8px;opacity:.92}
+/* progress bar + Skip */
+.k-prog{display:flex;align-items:center;gap:14px;padding:58px 20px 0}
+.k-prog .tr{flex:1;height:6px;border-radius:3px;background:#fff;overflow:hidden}
+.k-prog .tr i{display:block;height:100%;border-radius:3px;background:var(--k-purple);transition:width .35s}
+.k-prog button{font:700 15px/1 'Lato',sans-serif;color:var(--k-purple)}
+/* welcome — their purple gradient and illustration */
+.scr--grad{background:linear-gradient(200deg,var(--k-g1) 0%,var(--k-g2) 46%,var(--k-g3) 100%);color:#fff}
+.k-wart{display:block;width:100%;height:auto;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 8%,#000 80%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 8%,#000 80%,transparent 100%)}
+.k-big{font:900 50px/1 'Lato',sans-serif;text-align:center;margin-top:2px;letter-spacing:-.01em}
+.k-big small{font-size:28px;color:var(--k-gold);margin-left:6px;vertical-align:6px}
+.k-bigs{font:700 17px/1.3 'Lato',sans-serif;text-align:center;margin-top:8px}
+.k-stars{text-align:center;color:var(--k-gold);font-size:24px;letter-spacing:3px;margin-top:6px}
+.k-agree{margin:22px 4px 0;background:rgba(255,255,255,.14);border-radius:18px;padding:12px 16px;display:flex;flex-direction:column;gap:8px}
+.k-agree label{display:flex;align-items:center;gap:12px;font:400 15px/1.2 'Lato',sans-serif;cursor:pointer}
+.k-agree label u{text-underline-offset:2px}
+.k-cb{width:22px;height:22px;border-radius:6px;border:2.5px solid #fff;background:rgba(255,255,255,.35);flex:none;display:grid;place-items:center}
+.k-cb.on{background:#fff}
+.k-cb.on::after{content:'';width:10px;height:5px;border:2.5px solid var(--k-purple);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.k-wbtn{display:block;width:100%;height:54px;border-radius:12px;background:#fff;color:var(--k-purple);font:700 20px/1 'Lato',sans-serif}
+/* who — Parent / Kid cards */
+.k-who{display:flex;flex-direction:column;gap:12px;margin-top:22px}
+.k-wc{position:relative;text-align:left;background:var(--k-card);border-radius:18px;padding:16px 18px;color:var(--k-ink);overflow:hidden}
+.k-wc b{display:block;font:700 20px/1.2 'Lato',sans-serif}
+.k-wc span{display:block;font:400 17px/1.3 'Lato',sans-serif;margin-top:4px}
+.k-wc .rd{position:absolute;right:16px;top:16px;width:26px;height:26px;border-radius:50%;border:2px solid #CFC8E6}
+.k-wc.on{background:var(--k-purple);color:#fff}
+.k-wc.on .rd{border:3px solid #fff}
+.k-wc.on .rd::after{content:'';position:absolute;inset:4px;border-radius:50%;background:#fff}
+.k-wc img{display:none;width:132px;margin:2px auto -16px;border-radius:0}
+.k-wc.on img{display:block}
+/* goals grid */
+.k-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.k-tile{position:relative;background:var(--k-card);border:2px solid transparent;border-radius:18px;padding:12px 8px 14px;text-align:center;color:var(--k-ink);height:128px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end}
+.k-tile img{width:80px;height:58px;object-fit:contain;margin-bottom:auto;margin-top:2px;mix-blend-mode:multiply}
+.k-tile span.nm{font:400 15px/1.25 'Lato',sans-serif}
+.k-tile .ck{position:absolute;left:10px;top:10px;width:24px;height:24px;border-radius:50%;border:2px solid #E9E6F0}
+.k-tile.on{border-color:var(--k-purple)}
+.k-tile.on .ck{background:var(--k-purple);border-color:var(--k-purple)}
+.k-tile.on .ck::after{content:'';position:absolute;left:6px;top:6px;width:9px;height:4px;border:2.2px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg)}
+/* feature slide for a picked goal */
+.k-pick{display:inline-flex;align-items:center;gap:6px;background:#E8E1F8;color:var(--k-purple2);font:700 13px/1 'Lato',sans-serif;padding:7px 12px;border-radius:14px}
+.k-fart{display:block;width:100%;height:300px;object-fit:contain;margin:12px auto 0;mix-blend-mode:multiply}
+.k-fcard{background:var(--k-card);border-radius:18px;padding:14px 16px;text-align:center;font:400 18px/1.35 'Lato',sans-serif;color:var(--k-ink);margin-top:14px}
+.k-fcard b{font-weight:900;color:var(--k-purple);font-size:24px}
+.k-fnote{background:rgba(255,255,255,.55);border-radius:14px;padding:10px 14px;text-align:center;font:400 13.5px/1.35 'Lato',sans-serif;color:#6E7194;margin-top:8px}
+/* loader — their ring, now showing what it sets up */
+.k-ring{position:relative;width:186px;height:186px;margin:34px auto 0}
+.k-ring::before{content:'';position:absolute;inset:-60px;border-radius:50%;background:radial-gradient(closest-side,rgba(128,94,206,.16),transparent)}
+.k-ring svg{position:relative;width:100%;height:100%;transform:rotate(-90deg)}
+.k-ring b{position:absolute;inset:0;display:grid;place-items:center;font:900 40px/1 'Lato',sans-serif;color:var(--k-ink)}
+.k-steps{display:flex;flex-direction:column;gap:8px;margin-top:22px}
+.k-step{display:flex;align-items:center;gap:12px;background:var(--k-card);border-radius:14px;padding:12px 14px;font:400 16px/1.25 'Lato',sans-serif;color:var(--k-mute);transition:.3s}
+.k-step i{width:24px;height:24px;border-radius:50%;flex:none;border:2px solid #E3DEF0;display:grid;place-items:center;transition:.3s}
+.k-step.done{color:var(--k-ink)}
+.k-step.done i{background:var(--k-purple);border-color:var(--k-purple)}
+.k-step.done i::after{content:'';width:9px;height:4px;border:2.2px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+/* paywall */
+.k-x{position:absolute;right:16px;top:52px;width:40px;height:40px;display:grid;place-items:center;color:#B9B6CC;z-index:6}
+.k-x svg{width:22px;height:22px}
+.k-ticks{display:flex;flex-direction:column;gap:8px;margin:14px 6px 0}
+.k-ticks div{display:flex;gap:10px;align-items:center;font:400 16px/1.3 'Lato',sans-serif;color:var(--k-ink)}
+.k-ticks i{width:22px;height:22px;border-radius:50%;background:var(--k-purple);flex:none;display:grid;place-items:center}
+.k-ticks i::after{content:'';width:8px;height:4px;border:2.2px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.k-rev{background:var(--k-card);border-radius:22px;padding:14px 18px 12px;text-align:center;margin-top:16px}
+.k-rev .st{color:var(--k-gold);font-size:22px;letter-spacing:4px}
+.k-rev p{font:400 15.5px/1.38 'Lato',sans-serif;color:var(--k-ink);margin-top:4px}
+.k-rev b{display:block;font:700 13.5px/1 'Lato',sans-serif;color:#A9A8BE;margin-top:8px}
+.k-rate{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:10px;font:700 14px/1 'Lato',sans-serif;color:var(--k-ink)}
+.k-rate .st{color:var(--k-gold);letter-spacing:1px}
+.k-rate span{font-weight:400;color:var(--k-mute)}
+.k-plans{display:flex;flex-direction:column;gap:12px;margin-top:14px;padding-bottom:4px}
+.k-plan{position:relative;display:flex;justify-content:space-between;align-items:center;text-align:left;background:var(--k-card);border:1.5px solid #A9A8BE;border-radius:14px;padding:12px 16px;color:#A9A8BE}
+.k-plan b{display:block;font:700 18px/1.2 'Lato',sans-serif}
+.k-plan span{display:block;font:400 13.5px/1.2 'Lato',sans-serif;margin-top:2px}
+.k-plan strong{font:700 16px/1 'Lato',sans-serif;flex:none}
+.k-plan .bd{display:none}
+.k-plan.has-bd{border-radius:0 0 14px 14px;margin-top:22px}
+.k-plan.has-bd .bd{display:block;position:absolute;left:-1.5px;right:-1.5px;top:-24px;height:24px;border-radius:12px 12px 0 0;background:#A9A8BE;color:#fff;text-align:center;font:400 14px/24px 'Lato',sans-serif}
+.k-plan.on{border:3px solid var(--k-purple);color:var(--k-ink);padding:10.5px 14.5px}
+.k-plan.on.has-bd .bd{background:var(--k-purple);left:-3px;right:-3px}
+.k-plan.on span{color:var(--k-mute)}
+.k-prot{display:flex;justify-content:center;align-items:center;gap:6px;font:400 13.5px/1 'Lato',sans-serif;color:#A9A8BE;margin-top:10px}
+.k-prot svg{width:16px;height:16px}
+/* offer on close — their bottom sheet, now a trial timeline */
+.k-dim{position:absolute;inset:0;background:rgba(48,40,80,.32)}
+.k-sheet{position:absolute;left:0;right:0;bottom:0;background:var(--k-bg);border-radius:34px 34px 0 0;overflow:hidden;display:flex;flex-direction:column}
+.k-sheet .grab{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:40px;height:5px;border-radius:3px;background:#C9C6D6;z-index:3}
+.k-croc{display:block;width:100%;height:auto}
+.k-tl{position:relative;display:flex;flex-direction:column;gap:12px;margin:16px 6px 0;text-align:left}
+.k-tl::before{content:'';position:absolute;left:11px;top:14px;bottom:14px;width:2px;background:linear-gradient(var(--k-purple),#D9D2EE)}
+.k-tl div{position:relative;display:flex;gap:14px;align-items:flex-start}
+.k-tl i{width:24px;height:24px;border-radius:50%;flex:none;background:#E3DCF5;border:2px solid var(--k-bg);display:grid;place-items:center;position:relative;z-index:1}
+.k-tl div:first-child i{background:var(--k-purple)}
+.k-tl div:first-child i::after{content:'';width:8px;height:4px;border:2.2px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.k-tl b{display:block;font:700 15.5px/1.25 'Lato',sans-serif;color:var(--k-ink)}
+.k-tl span{display:block;font:400 14px/1.3 'Lato',sans-serif;color:var(--k-mute);margin-top:1px}
+.k-fine{font:400 13.5px/1.3 'Lato',sans-serif;color:#A9A8BE;text-align:center;margin-top:10px}
+.k-link{display:block;margin:12px auto 0;font:700 17px/1 'Lato',sans-serif;color:var(--k-purple)}
+.k-toast{position:absolute;left:20px;right:20px;bottom:130px;z-index:80;background:rgba(40,36,64,.94);color:#fff;border-radius:14px;padding:12px 14px;font-size:14px;text-align:center;opacity:0;transform:translateY(8px);transition:.25s;pointer-events:none}
+.k-toast.on{opacity:1;transform:none}
+
+/* dark mode — an approximation: no dark frames of Kids360 exist */
+.phone-in.dark{--k-bg:#17151F;--k-card:#24212F;--k-ink:#ECEAF6;--k-mute:#9B98B2;--k-off:#3A3650;--k-line:#2E2A3C}
+.phone-in.dark .screenwrap{background:var(--k-bg)}
+.phone-in.dark .k-prog .tr{background:#2E2A3C}
+.phone-in.dark .k-tile img,.phone-in.dark .k-fart{mix-blend-mode:normal;border-radius:14px}
+.phone-in.dark .k-fart{background:#F3F0F7}
+.phone-in.dark .k-tile .ck,.phone-in.dark .k-wc .rd,.phone-in.dark .k-step i{border-color:#4A4560}
+.phone-in.dark .k-tile.on .ck{border-color:var(--k-purple)}
+.phone-in.dark .k-pick{background:#2F2748;color:#C9B8FF}
+.phone-in.dark .k-fnote{background:#211E2C;color:#9B98B2}
+.phone-in.dark .k-plan{border-color:#4A4560;color:#8E8AA6}
+.phone-in.dark .k-plan.has-bd .bd{background:#4A4560}
+.phone-in.dark .k-plan.on{border-color:var(--k-purple);color:var(--k-ink)}
+.phone-in.dark .k-plan.on.has-bd .bd{background:var(--k-purple)}
+.phone-in.dark .k-tl i{background:#3A3352;border-color:var(--k-bg)}
+.phone-in.dark .k-tl div:first-child i{background:var(--k-purple)}
+.phone-in.dark .k-dim{background:rgba(0,0,0,.5)}
+.phone-in.dark .k-croc{filter:brightness(.92)}
+.phone-in.dark .scr--grad{background:linear-gradient(200deg,#5E45A8 0%,#4A3590 46%,#33246E 100%)}
+.phone-in.dark .k-wart{filter:brightness(.82)}
+
+/* prototype toolbar, walkthrough, QR */
+.tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:520px}
+.seg{display:inline-flex;align-items:center;background:var(--surf);border:1px solid var(--hair2);border-radius:20px;padding:3px;gap:2px}
+.seg button{padding:6px 11px;border-radius:16px;font:700 12px/1 'Lato',sans-serif;color:var(--ink2)}
+.seg button.on{background:var(--accent);color:var(--on-accent)}
+.demo-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:20px;background:var(--accent);color:var(--on-accent);font:700 12.5px/1 'Lato',sans-serif}
+.demo-cap{width:390px;max-width:calc(100vw - 24px);background:var(--surf);border:1px solid var(--hair2);border-radius:16px;padding:14px 14px 12px;display:flex;align-items:center;gap:12px;position:relative;overflow:hidden}
+.demo-cap .bar{position:absolute;left:0;top:0;right:0;height:3px;background:var(--hair)}
+.demo-cap .bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s linear}
+.demo-cap p{flex:1;font-size:14px;line-height:1.45;color:var(--ink);font-weight:700}
+.demo-cap button{font:700 12px/1 'Lato',sans-serif;color:var(--ink2);padding:7px 10px;border-radius:12px;border:1px solid var(--hair2);flex:none}
+.finger{position:absolute;z-index:90;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(58,43,120,.18);border:2px solid rgba(58,43,120,.75);box-shadow:0 4px 14px rgba(0,0,0,.2);pointer-events:none;opacity:0;left:50%;top:60%;
+  transition:left .32s cubic-bezier(.4,0,.2,1),top .32s cubic-bezier(.4,0,.2,1),opacity .2s,transform .15s}
+.finger.show{opacity:1}
+.finger.press{transform:scale(.78);background:rgba(58,43,120,.32)}
+.qr{display:flex;align-items:center;gap:12px;background:var(--surf);border:1px solid var(--hair);border-radius:16px;padding:10px 16px 10px 10px;text-align:left}
+.qr img{width:135px;height:135px;display:block;image-rendering:pixelated;border-radius:6px}
+.qr span{font-size:13px;line-height:1.45;color:var(--ink2)}
+.qr b{display:block;color:var(--ink);font-size:14px}
+@media(max-width:1080px){#view-proto .qr{display:none}}
+#view-proto .tools{order:0} #view-proto .demo-cap{order:1} #view-proto .phone{order:2} #view-proto .chips{order:3}
+#view-proto .chiphint{order:4} #view-proto .qr{order:5}
+.cta-row .qr{order:2}
+@media(max-width:500px){
+  #view-proto .phonecol{padding:0 0 28px;gap:14px}
+  #view-proto .phone{width:100vw;height:calc(100svh - 58px);min-height:640px;border:0;border-radius:0;box-shadow:none;order:1}
+  #view-proto .phone-in{border-radius:0}
+  #view-proto .island,#view-proto .sbar,#view-proto .homebar{display:none}
+  #view-proto .k-x{top:10px}
+  #view-proto .k-prog{padding-top:18px}
+  #view-proto .scr-top .sp{height:20px!important}
+  #view-proto .scr-body .sp{height:16px!important}
+  #view-proto [data-id=paywall] .scr-body .sp{height:54px!important}
+  #view-proto .scr-foot{padding-bottom:18px}
+  #view-proto .tools{order:3;padding:0 12px}
+  #view-proto .demo-cap{position:fixed;left:12px;right:12px;bottom:12px;width:auto;max-width:none;z-index:95}
+  #view-proto .chips{order:4;padding:0 12px}
+  #view-proto .chiphint{order:5}
+}
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:470px;margin:0 auto}
+.chip{padding:7px 13px;border-radius:20px;border:1px solid var(--hair2);background:var(--surf);font:700 12px/1 'Lato',sans-serif;color:var(--ink2)}
+.chip:hover{color:var(--ink)}
+.chip.offer{border-style:dashed;border-color:var(--accent);color:var(--accent-lift)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent);border-style:solid}
+.chiphint{text-align:center;font-size:11.5px;color:var(--ink3);max-width:430px}
+
+/* ============ the short panel ============ */
+.pn{padding:30px 30px 60px}
+.pn-n{font-size:10.5px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+.pn-n.ctx{color:var(--panel-muted)}
+.pn-t{font-size:24px;line-height:1.2;font-weight:900;letter-spacing:-.015em;margin:8px 0 0;color:var(--panel-ink)}
+.pn-hyp{font-size:15.5px;line-height:1.62;color:#E2DBF8;margin:16px 0 0}
+.pn-hyp b{font-weight:900;color:var(--panel-ink)}
+.pn-out{margin-top:22px;border-top:1px solid var(--panel-line);padding-top:18px}
+.pn-out .lab{font-size:10px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:var(--panel-muted)}
+.pn-out .v{font-size:32px;font-weight:900;letter-spacing:-.02em;color:var(--accent-ink);margin-top:7px;line-height:1}
+.pn-kept{margin-top:22px;font-size:13px;line-height:1.55;color:var(--panel-muted)}
+.pn-kept b{color:#E2DBF8;font-weight:900}
+.pn-foot{font-size:12px;line-height:1.55;color:var(--panel-muted);border-top:1px solid var(--panel-line);padding-top:14px;margin-top:26px}
+.pn-sep{height:1px;background:var(--panel-line);margin:26px 0}
+.hidden{display:none !important}
+</style>
+</head>
+<body>
+<div class="nav"><div class="nav-in">
+  <div class="nav-brand"><span class="mk"><img src="img/icon.png" alt="Kids360"></span><b>Growth Audit</b><span>· Kids360</span></div>
+  <div class="nav-links"><button class="on" data-view="over">Overview</button><button data-view="proto">Prototype</button></div>
+</div></div>
+
+<!-- ======================= OVERVIEW ======================= -->
+<div class="view on" id="view-over">
+<div class="hero"><div class="wrap">
+  <div class="eyebrow">Growth Audit · November 2026</div>
+  <h1>Kids360</h1>
+  <p class="lede">Five ideas to unlock more revenue from the traffic you already have.</p>
+  <div class="meta">Prepared by <b>Adapty</b> · based on your live iOS flow and your App Store listing</div>
+  <div class="herobtns"><button class="ghostbtn" data-demo><span class="pl"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg></span>Watch the 30-second walkthrough</button></div>
+  <div class="stats">
+    <div class="stat"><b>30,000+</b><span>apps run subscriptions<br>on Adapty</span></div>
+    <div class="stat"><b>5</b><span>ideas, each rebuilt<br>as a working screen</span></div>
+    <div class="stat"><b>0</b><span>design changes<br>to your art direction</span></div>
+  </div>
+  <div class="fb">
+    <div class="fb-k">Built in Adapty Flow Builder</div>
+    <div class="fb-i"><span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><p><b>Millions of dollars</b> in subscription revenue pass through Flow Builder every month.</p></div>
+    <div class="fb-i"><span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><p><b>Nearly 500 apps</b> actively build their paywalls and onboarding in it — plenty of them past $100K MRR.</p></div>
+  </div>
+</div></div>
+
+<div class="sec"><div class="wrap">
+  <div class="sec-k">What this is</div>
+  <h2>We went through Kids360’s first run the way a new parent does, then rebuilt the parts we think are leaving money on the table.</h2>
+  <p class="body">Adapty powers subscriptions for <b>30,000+ apps</b>, so we get to see what actually moves conversion and ARPU across the market rather than inside one app. We pointed that at Kids360: went through all eighteen screens before the price — the goal picker, the five yes/no questions, the feature slides, the reviews, the loader — then the paywall and the “Don’t leave yet” sheet, and read your App Store listing.</p>
+  <p class="body">What follows is five ideas — not fifteen. Each one is a hypothesis you can A/B test, and each one is built into a clickable prototype so you can see it rather than imagine it. <b>The prototype uses your design, not ours.</b></p>
+  <div class="notes">
+    <div class="note"><h4>We did not redesign your app</h4><p>Every screen in the prototype is yours — the purple gradient welcome, the lavender canvas and white rounded cards, the goal tiles with your illustrations, the progress bar with Skip, the ring loader, the plan cards with the “Save 50%” tab and the crocodile sheet. Only the order and a few lines changed.</p></div>
+    <div class="note"><h4>Everything is already yours</h4><p>The goals, the feature slides, the review, the 2.5x survey line, the prices and the 3-day trial all come from your own screens. The rating comes from your App Store page. We added no new claims.</p></div>
+  </div>
+</div></div>
+
+<div class="rule"></div>
+
+<div class="sec"><div class="wrap">
+  <div class="sec-k">The five ideas</div>
+  <h2>Ranked by what we would test first.</h2>
+  <p class="body">Each one links straight to the screen in the prototype.</p>
+  <div class="ideas">
+    <button class="idea" data-jump="paywall"><span class="no">01</span><span>
+      <h3>Open the paywall on the goals they picked</h3>
+      <p>Parents tell you on screen three what they want — less screen time, a bedtime schedule, knowing where their kid is. Fifteen screens later the paywall says “Choose your plan”. Put their picks above the prices, as your own tick list.</p>
+      <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+      <span class="out"><b>CR +15–20%</b><span>to purchase</span></span></button>
+    <button class="idea" data-jump="goals"><span class="no">02</span><span>
+      <h3>Ask once, then show only what they picked</h3>
+      <p>After the goal picker come five yes/no questions that ask the same things again, and a feature slide for every goal, picked or not. Let the picker do the asking and show one of your slides per goal — eighteen screens before the price become about nine.</p>
+      <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+      <span class="out"><b>CR +10–15%</b><span>to purchase</span></span></button>
+    <button class="idea" data-jump="loader"><span class="no">03</span><span>
+      <h3>Let the loader set up what they asked for</h3>
+      <p>“Setting things up for you…” runs to 100% with nothing to show for it. Under the same ring, tick off what it is setting up — a bedtime schedule, a web filter, location on a map — straight from their answers.</p>
+      <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+      <span class="out"><b>CR +10–15%</b><span>to purchase</span></span></button>
+    <button class="idea" data-jump="welcome"><span class="no">04</span><span>
+      <h3>One proof number — the one on your store page</h3>
+      <p>The flow shows “200 000+ 5-star reviews” and “3 millions of caring parents”; your website says 100K+ reviews and 1M+ parents; the App Store shows 4.6 from 9K ratings. A parent can check only the last one. Lead with it, and put your reviews next to the price.</p>
+      <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+      <span class="out"><b>CR +10–15%</b><span>to purchase</span></span></button>
+    <button class="idea" data-jump="offer"><span class="no">05</span><span>
+      <h3>On close, show how the 3-day trial works</h3>
+      <p>Your “Don’t leave yet” sheet already offers 3 free days on the USD 39.99 year — a different deal from the paywall, which is right. Show it as a short timeline: free today, the year starts on day 3, cancel before then and nothing is charged.</p>
+      <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+      <span class="out"><b>CR +5–10%</b><span>second chance</span></span></button>
+  </div>
+  <div class="band">
+    <div class="txt"><div class="lab">Potential outcome</div><p>Run together, these five get a parent to the price in half the screens, show them only the features they asked for, set those up in front of them, open the paywall on their own goals with a rating they can check, and make the trial on close easy to say yes to. Potential result: revenue up to +25%.</p></div>
+    <div class="nums"><div><b>+25%</b><span>CR to purchase</span></div><div><b>+25%</b><span>Revenue</span></div></div>
+  </div>
+  <div class="cta-row">
+    <div class="qr"><img src="img/qr.svg" alt="QR code for the prototype"><span><b>Or open it on your phone</b>Scan to try the flow in your hand.</span></div>
+    <button class="bigbtn" data-view="proto">Open the prototype <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+</div></div>
+<div class="foot"><div class="wrap">Impact ranges are Adapty's expected effect from teardowns and A/B tests across subscription apps — not measured lift for Kids360. Every price and claim here and in the prototype comes from Kids360's own App Store listing and in-app screens.</div></div>
+</div><!-- /view-over -->
+
+<!-- ======================= PROTOTYPE ======================= -->
+<div class="view" id="view-proto">
+<div class="stage">
+  <div class="phonecol">
+    <div class="tools">
+      <div class="seg" id="segLang"><button data-lang="en" class="on">EN</button><button data-lang="ja">JA</button><button data-lang="pt">PT</button></div>
+      <div class="seg" id="segTheme"><button data-theme="light" class="on">Light</button><button data-theme="dark">Dark</button></div>
+      <button class="demo-btn" id="demoBtn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M7 4.5v15l12-7.5z"/></svg>30-sec walkthrough</button>
+    </div>
+    <div class="phone">
+      <div class="phone-in" id="phoneIn">
+        <div class="island"></div>
+        <div class="sbar" id="sbar"><span>9:41</span><span class="glyphs">
+          <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7.5" width="3" height="3.5" rx="1"/><rect x="4.5" y="5.5" width="3" height="5.5" rx="1"/><rect x="9" y="3" width="3" height="8" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+          <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.6 7.9a3.4 3.4 0 0 1 4.8 0L8 10.5Zm0-5.6a6.4 6.4 0 0 0-4.5 1.9L1.7 4.9a9 9 0 0 1 12.6 0l-1.8 1.9A6.4 6.4 0 0 0 8 4.9Z"/></svg>
+          <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".6" y=".6" width="20" height="10.8" rx="3" stroke="currentColor" stroke-opacity=".5"/><rect x="2.2" y="2.2" width="16.5" height="7.6" rx="1.8" fill="currentColor"/><path d="M22.3 4.1v3.8a2 2 0 0 0 0-3.8Z" fill="currentColor" fill-opacity=".5"/></svg></span></div>
+        <div class="homebar" id="homebar"></div>
+        <div class="finger" id="finger"></div>
+        <div class="k-toast" id="toast"></div>
+        <div class="screenwrap">
+
+<!-- WELCOME — their gradient and family, with the store's own number -->
+<section class="scr scr--grad" data-id="welcome">
+  <div class="scr-top"><div class="sp" style="height:52px"></div></div>
+  <div class="scr-body" style="overflow:hidden;padding:0">
+    <img class="k-wart" src="img/welcome.jpg" alt="">
+    <div style="padding:0 20px">
+      <div class="k-big">4.6<small>★</small></div>
+      <p class="k-bigs" data-t="wRat"></p>
+      <div class="k-stars">★★★★★</div>
+      <div class="k-agree">
+        <label data-cb><span class="k-cb"></span><span><span data-t="agree"></span> <u data-t="tou"></u></span></label>
+        <label data-cb><span class="k-cb"></span><span><span data-t="agree"></span> <u data-t="pp"></u></span></label>
+      </div>
+    </div>
+  </div>
+  <div class="scr-foot"><button class="k-wbtn" id="welBtn" data-t="start"></button></div>
+</section>
+
+<!-- WHO — their Parent / Kid choice, unchanged -->
+<section class="scr" data-id="who">
+  <div class="scr-top"><div class="sp" style="height:76px"></div></div>
+  <div class="scr-body"><h2 class="k-h" data-t="whoT"></h2>
+    <div class="k-who">
+      <button class="k-wc" data-who="parent"><span class="rd"></span><b data-t="par"></b><span data-t="parS"></span><img src="img/parent.jpg" alt=""></button>
+      <button class="k-wc" data-who="kid"><span class="rd"></span><b data-t="kid"></b><span data-t="kidS"></span></button>
+    </div></div>
+  <div class="scr-foot"><button class="k-btn" id="whoBtn" data-t="cont"></button></div>
+</section>
+
+<!-- GOALS — the only question now -->
+<section class="scr" data-id="goals">
+  <div class="scr-top"><div class="k-prog"><span class="tr"><i id="prog1" style="width:12%"></i></span><button data-skip data-t="skip"></button></div><div class="sp" style="height:26px"></div></div>
+  <div class="scr-body"><h2 class="k-h" data-t="goalT"></h2><p class="k-s" data-t="goalS"></p><div class="k-grid" id="grid"></div></div>
+  <div class="scr-foot"><button class="k-btn" id="goalBtn" data-t="cont"></button></div>
+</section>
+
+<!-- FEATURE — one of their slides per picked goal -->
+<section class="scr" data-id="feat">
+  <div class="scr-top"><div class="k-prog"><span class="tr"><i id="prog2" style="width:40%"></i></span><button data-skip data-t="skip"></button></div><div class="sp" style="height:18px"></div></div>
+  <div class="scr-body" style="text-align:center"><span class="k-pick" id="fPick"></span><img class="k-fart" id="fArt" src="img/f_stat.jpg" alt=""><div id="fText"></div></div>
+  <div class="scr-foot"><button class="k-btn" id="featBtn" data-t="cont"></button></div>
+</section>
+
+<!-- LOADER — their ring, ticking off what it sets up -->
+<section class="scr" data-id="loader">
+  <div class="scr-top"><div class="sp" style="height:64px"></div></div>
+  <div class="scr-body">
+    <div class="k-ring"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#fff" stroke-width="10" id="ringBg"/><circle cx="50" cy="50" r="42" fill="none" stroke="var(--k-purple)" stroke-width="10" stroke-linecap="round" stroke-dasharray="263.9" stroke-dashoffset="263.9" id="ring"/></svg><b id="pct">0%</b></div>
+    <h2 class="k-h" style="margin-top:26px" data-t="load"></h2>
+    <div class="k-steps" id="steps"></div>
+  </div>
+</section>
+
+<!-- PAYWALL -->
+<section class="scr" data-id="paywall">
+  <button class="k-x" id="payClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  <div class="scr-body">
+    <div class="sp" style="height:92px"></div>
+    <h2 class="k-h" data-t="payT"></h2>
+    <div class="k-ticks" id="payTicks"></div>
+    <div class="k-rev"><div class="st">★★★★★</div><p data-t="rev"></p><b>Linda Barnes</b></div>
+    <div class="k-rate"><span class="st">★★★★★</span>4.6 <span data-t="rat"></span></div>
+    <div class="k-plans">
+      <button class="k-plan has-bd" data-v="yr"><span class="bd" data-t="save"></span><span><b data-t="annual"></b><span data-t="forYr"></span></span><strong data-t="pYr"></strong></button>
+      <button class="k-plan" data-v="mo"><span><b data-t="monthly"></b></span><strong data-t="pMo"></strong></button>
+    </div>
+  </div>
+  <div class="scr-foot" style="padding-top:12px"><button class="k-btn" id="payCta" data-t="cont"></button><p class="k-prot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 9.5 4-1.2 7-5 7-9.5V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg><span data-t="prot"></span></p></div>
+</section>
+
+<!-- OFFER ON CLOSE — their crocodile sheet, now a trial timeline -->
+<section class="scr sheet" data-id="offer">
+  <div class="k-dim" id="offDim"></div>
+  <div class="k-sheet">
+    <span class="grab"></span>
+    <img class="k-croc" src="img/croc.jpg" alt="">
+    <div style="padding:0 22px 34px;text-align:center" class="sh-in">
+      <h2 class="k-h" style="font-size:28px;margin-top:6px" data-t="oT"></h2>
+      <p class="k-s" style="margin-top:4px" data-t="oS"></p>
+      <div class="k-tl">
+        <div><i></i><span><b data-t="t1"></b><span data-t="t1s"></span></span></div>
+        <div><i></i><span><b data-t="t2"></b><span data-t="t2s"></span></span></div>
+        <div><i></i><span><b data-t="t3"></b><span data-t="t3s"></span></span></div>
+      </div>
+      <button class="k-btn" id="offerCta" style="margin-top:18px" data-t="oCta"></button>
+      <p class="k-fine" data-t="oFine"></p>
+      <button class="k-link" id="offNo" data-t="oNo"></button>
+    </div>
+  </div>
+</section>
+
+        </div>
+      </div>
+    </div>
+    <div class="demo-cap hidden" id="demoCap"><div class="bar"><i id="demoProg"></i></div><p id="demoTxt"></p><button id="demoStop">Stop</button></div>
+    <div class="chips" id="chips"></div>
+    <p class="chiphint">Jump to any screen — answers already filled in.</p>
+    <div class="qr"><img src="img/qr.svg" alt="QR code for this prototype"><span><b>Open it on your phone</b>Scan to try the flow in your hand.</span></div>
+  </div>
+  <div class="panelcol"><div class="pn" id="panel"></div></div>
+</div>
+</div><!-- /view-proto -->
+
+<script>
+/* every goal is one of their six tiles; every slide is one of their own feature slides */
+var GOAL=[
+ {k:'screen',ic:'g_screen',sl:'stat', en:['Reduce screen time','Daily screen time limits'], ja:['スクリーンタイムを減らす','1日の利用時間の制限'], pt:['Reduzir o tempo de tela','Limites diários de tela']},
+ {k:'focus', ic:'g_focus', sl:'sched',en:['Improve focus on studies','Study-time schedule'], ja:['勉強への集中力を高める','勉強時間のスケジュール'], pt:['Melhorar o foco nos estudos','Horário de estudo']},
+ {k:'threats',ic:'g_threats',sl:'web',en:['Protect from online threats','Web filter for adult sites'], ja:['ネットの危険から守る','アダルトサイトのフィルター'], pt:['Proteger de ameaças online','Filtro web para sites adultos']},
+ {k:'sleep', ic:'g_sleep', sl:'sched',en:['Set sleep schedule','Bedtime schedule'], ja:['睡眠スケジュールを設定','就寝時間のスケジュール'], pt:['Definir horário de sono','Horário de dormir']},
+ {k:'irrit', ic:'g_irrit', sl:'block',en:['Reduce irritability','One-tap game and video blocking'], ja:['イライラを減らす','ゲームと動画をワンタップでブロック'], pt:['Reduzir a irritabilidade','Bloqueio de jogos e vídeos com um toque']},
+ {k:'where', ic:'g_where', sl:'where',en:['Know where my kid is','Location on a map'], ja:['子どもの居場所を知る','地図で位置を確認'], pt:['Saber onde meu filho está','Localização no mapa']}
+];
+var SLIDE={
+ stat:{img:'f_stat.jpg',
+  en:['','Kids spend <b>2.5 times</b> less time on their devices thanks to Kids360','Based on a survey of 9000 Kids360 users in 2024'],
+  ja:['','Kids360のおかげで、子どものデバイス利用時間は<b>2.5分の1</b>に','2024年にKids360ユーザー9000人を対象に行った調査より'],
+  pt:['','As crianças passam <b>2,5 vezes</b> menos tempo nos dispositivos graças ao Kids360','Com base em uma pesquisa com 9000 usuários do Kids360 em 2024']},
+ sched:{img:'f_sched.jpg',
+  en:['Block the device during study and sleep time','To help your kid focus more on schoolwork and avoid playing on the device before bed'],
+  ja:['勉強と睡眠の時間はデバイスをブロック','宿題に集中し、寝る前にゲームをしないように'],
+  pt:['Bloqueie o dispositivo na hora de estudar e dormir','Para seu filho focar nos estudos e não jogar antes de dormir']},
+ web:{img:'f_web.jpg',
+  en:['Keep track of online safety','Check your kid\'s browser and YouTube history'],
+  ja:['ネットの安全を見守る','ブラウザとYouTubeの履歴を確認できます'],
+  pt:['Acompanhe a segurança online','Veja o histórico do navegador e do YouTube do seu filho']},
+ block:{img:'f_block.jpg',
+  en:['Block games and videos with just one button','So your kid can focus on school or take a break'],
+  ja:['ボタンひとつでゲームと動画をブロック','勉強に集中したり、休憩したりできるように'],
+  pt:['Bloqueie jogos e vídeos com um só botão','Para seu filho focar na escola ou fazer uma pausa']},
+ where:{img:'f_where.jpg',
+  en:['With Kids360 you always know where your kid is',''],
+  ja:['Kids360なら、子どもの居場所がいつでもわかる',''],
+  pt:['Com o Kids360 você sempre sabe onde seu filho está','']}
+};
+var L={
+ en:{wRat:'out of 5 · 9K ratings on the App Store',agree:'I agree to the',tou:'Terms of Use',pp:'Privacy Policy',start:'Start',
+  whoT:'Who\'s going to use this device?',par:'Parent',parS:'This is my device',kid:'Kid',kidS:'This is my kid\'s device',cont:'Continue',skip:'Skip',
+  goalT:'What do you want to use Kids360 for?',goalS:'Choose everything that matters to you',youPick:'You picked:',
+  load:'Setting things up for you…',
+  payT:'Your Kids360 plan is ready',more:'and {n} more you picked',
+  rev:'Kids360 is a lifesaver during the holidays! my kids spend more time with the family and less time on their devices 😇',rat:'· 9K ratings on the App Store',
+  save:'Save 50%',annual:'Annual plan',forYr:'for a year USD 39.99',pYr:'USD 3.33/month',monthly:'Monthly',pMo:'USD 6.99/month',prot:'Protected by AppStore. Cancel at any time',
+  oT:'Don’t leave yet',oS:'Enjoy 3 days for free',t1:'Today',t1s:'Everything you picked, free',t2:'Day 2',t2s:'Cancel in App Store settings if it isn’t for you',t3:'Day 3',t3s:'Your year starts: USD 39.99, about USD 3.33 a month',
+  oCta:'Try for free',oFine:'3 days for free, then USD 39.99/year',oNo:'I don’t want it',
+  buy:'The App Store purchase sheet opens here.',free:'Kids360 opens on the free version.',kidT:'Kid’s phones use the Alli360 companion app.'},
+ ja:{wRat:'5点満点 · App Store評価 9K件',agree:'同意する:',tou:'利用規約',pp:'プライバシーポリシー',start:'はじめる',
+  whoT:'このデバイスを使うのは誰ですか？',par:'保護者',parS:'自分のデバイスです',kid:'子ども',kidS:'子どものデバイスです',cont:'続ける',skip:'スキップ',
+  goalT:'Kids360を何に使いたいですか？',goalS:'大切なものをすべて選んでください',youPick:'選んだ項目:',
+  load:'設定しています…',
+  payT:'あなたのKids360プランの準備ができました',more:'ほか{n}件',
+  rev:'Kids360 is a lifesaver during the holidays! my kids spend more time with the family and less time on their devices 😇',rat:'· App Store評価 9K件',
+  save:'50%お得',annual:'年間プラン',forYr:'1年 USD 39.99',pYr:'USD 3.33/月',monthly:'月間',pMo:'USD 6.99/月',prot:'App Storeで保護。いつでも解約できます',
+  oT:'まだ行かないで',oS:'3日間無料でお試し',t1:'今日',t1s:'選んだ機能をすべて無料で',t2:'2日目',t2s:'合わなければApp Storeの設定で解約',t3:'3日目',t3s:'年間プラン開始: USD 39.99（月あたり約USD 3.33）',
+  oCta:'無料で試す',oFine:'3日間無料、その後 USD 39.99/年',oNo:'いりません',
+  buy:'ここでApp Storeの購入画面が開きます。',free:'Kids360は無料版で開きます。',kidT:'子どものスマホではAlli360アプリを使います。'},
+ pt:{wRat:'de 5 · 9K avaliações na App Store',agree:'Eu concordo com os',tou:'Termos de Uso',pp:'Política de Privacidade',start:'Começar',
+  whoT:'Quem vai usar este dispositivo?',par:'Pai ou mãe',parS:'Este é o meu dispositivo',kid:'Filho',kidS:'Este é o dispositivo do meu filho',cont:'Continuar',skip:'Pular',
+  goalT:'Para que você quer usar o Kids360?',goalS:'Escolha tudo o que importa para você',youPick:'Você escolheu:',
+  load:'Preparando tudo para você…',
+  payT:'Seu plano Kids360 está pronto',more:'e mais {n} que você escolheu',
+  rev:'Kids360 is a lifesaver during the holidays! my kids spend more time with the family and less time on their devices 😇',rat:'· 9K avaliações na App Store',
+  save:'Economize 50%',annual:'Plano anual',forYr:'por um ano USD 39.99',pYr:'USD 3.33/mês',monthly:'Mensal',pMo:'USD 6.99/mês',prot:'Protegido pela App Store. Cancele quando quiser',
+  oT:'Não vá ainda',oS:'Aproveite 3 dias grátis',t1:'Hoje',t1s:'Tudo o que você escolheu, grátis',t2:'Dia 2',t2s:'Cancele nos ajustes da App Store se não for para você',t3:'Dia 3',t3s:'Seu ano começa: USD 39.99, cerca de USD 3.33 por mês',
+  oCta:'Experimentar grátis',oFine:'3 dias grátis, depois USD 39.99/ano',oNo:'Não quero',
+  buy:'Aqui abre a folha de compra da App Store.',free:'O Kids360 abre na versão gratuita.',kidT:'O celular do filho usa o app Alli360.'}
+};
+function find(a,k){ for(var i=0;i<a.length;i++) if(a[i].k===k) return a[i]; return null; }
+var S0={theme:'light',lang:'en'};
+function defaults(){ return {theme:S0.theme,lang:S0.lang,agree:[true,true],who:'parent',goals:['screen','sleep','where'],fi:0,plan:'yr'}; }
+var S=defaults();
+function t(k){ return L[S.lang][k]; }
+function picked(){ return GOAL.filter(function(g){ return S.goals.indexOf(g.k)>=0; }); }
+function slides(){ var seen=[],out=[]; picked().forEach(function(g){ if(seen.indexOf(g.sl)<0){ seen.push(g.sl); out.push(g); } }); return out; }
+function buildGrid(){ var g=document.getElementById('grid'); g.innerHTML='';
+  GOAL.forEach(function(d){ var b=document.createElement('button'); b.className='k-tile'; b.dataset.v=d.k;
+    b.innerHTML='<span class="ck"></span><img src="img/'+d.ic+'.jpg" alt=""><span class="nm"></span>';
+    b.onclick=function(){ var i=S.goals.indexOf(d.k); if(i>=0) S.goals.splice(i,1); else S.goals.push(d.k); syncScreen(); }; g.appendChild(b); }); }
+function syncScreen(){
+  var lg=S.lang;
+  document.querySelectorAll('[data-t]').forEach(function(el){ el.textContent=t(el.dataset.t); });
+  document.querySelectorAll('[data-cb]').forEach(function(l,i){ l.querySelector('.k-cb').classList.toggle('on',!!S.agree[i]); });
+  document.querySelectorAll('.k-wc').forEach(function(b){ b.classList.toggle('on',b.dataset.who===S.who); });
+  document.querySelectorAll('.k-tile').forEach(function(b){ var d=find(GOAL,b.dataset.v); b.classList.toggle('on',S.goals.indexOf(d.k)>=0); b.querySelector('.nm').textContent=d[lg][0]; });
+  document.getElementById('goalBtn').disabled=!S.goals.length;
+  /* feature slide for the picked goal */
+  var sl=slides(), g=sl[Math.min(S.fi,sl.length-1)]||GOAL[0], s=SLIDE[g.sl], tx=s[lg];
+  document.getElementById('fArt').src='img/'+s.img;
+  var names=picked().filter(function(p){ return p.sl===g.sl; }).map(function(p){ return p[lg][0]; }).join(' · ');
+  document.getElementById('fPick').textContent=t('youPick')+' '+names;
+  document.getElementById('fText').innerHTML = g.sl==='stat'
+    ? '<div class="k-fcard">'+tx[1]+'</div><div class="k-fnote">'+tx[2]+'</div>'
+    : '<h2 class="k-h" style="margin-top:14px">'+tx[0]+'</h2>'+(tx[1]?'<p class="k-s">'+tx[1]+'</p>':'');
+  var n=sl.length||1; document.getElementById('prog2').style.width=(30+60*(S.fi+1)/n)+'%';
+  /* loader rows and paywall ticks come from the same picks */
+  var rows=picked().map(function(p){ return p[lg][1]; });
+  document.getElementById('steps').innerHTML=rows.map(function(r){ return '<div class="k-step"><i></i>'+r+'</div>'; }).join('');
+  var shown=rows.slice(0,3), rest=rows.length-3;
+  document.getElementById('payTicks').innerHTML=shown.map(function(r){ return '<div><i></i>'+r+'</div>'; }).join('')+(rest>0?'<div style="color:var(--k-mute);padding-left:32px">'+t('more').replace('{n}',rest)+'</div>':'');
+  document.querySelectorAll('.k-plan').forEach(function(b){ b.classList.toggle('on',b.dataset.v===S.plan); });
+  document.documentElement.lang=lg;
+}
+var ORDER=['welcome','who','goals','feat','loader','paywall','offer'];
+var LABEL={welcome:'Welcome',who:'Who uses it',goals:'Goals',feat:'Your features',loader:'Loader',paywall:'Paywall',offer:'Offer on close'};
+var scr={}, hist=[], cur='welcome';
+document.querySelectorAll('.scr').forEach(function(s){ scr[s.dataset.id]=s; });
+function chrome(){ var d=S.theme==='dark', lt=d||cur==='welcome'; document.getElementById('sbar').classList.toggle('light',lt); document.getElementById('homebar').classList.toggle('light',lt); }
+function enter(id){ chrome(); paintChips(); paintPanel(); if(id==='loader') runLoader(); }
+function go(id){ if(id===cur) return; var from=scr[cur], to=scr[id]; hist.push(cur);
+  from.classList.remove('is-active'); if(!to.classList.contains('sheet')) from.classList.add('is-past'); else from.classList.add('is-active');
+  Object.keys(scr).forEach(function(k){ if(k!==id&&k!==cur) scr[k].classList.remove('is-active'); });
+  to.classList.remove('is-past'); to.classList.add('is-active'); cur=id; enter(id); }
+var jumped=false;
+function jump(id){ var i=ORDER.indexOf(id); jumped=true;
+  Object.keys(scr).forEach(function(k){ scr[k].classList.add('nofx'); scr[k].classList.remove('is-active','is-past'); });
+  hist=ORDER.slice(0,i<0?0:i); if(id==='offer'){ scr.paywall.classList.add('is-active'); }
+  if(id==='feat') S.fi=0;
+  scr[id].classList.add('is-active'); cur=id;
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ Object.keys(scr).forEach(function(k){ scr[k].classList.remove('nofx'); }); }); });
+  syncScreen(); enter(id); }
+function paintChips(){ var c=document.getElementById('chips');
+  if(!c.children.length) ORDER.forEach(function(id){ var b=document.createElement('button'); b.className='chip'+(id==='offer'?' offer':''); b.textContent=LABEL[id]; b.dataset.id=id; b.onclick=function(){ stopDemo(); jump(id); }; c.appendChild(b); });
+  c.querySelectorAll('.chip').forEach(function(b){ b.classList.toggle('on',b.dataset.id===cur); }); }
+var toastT=null;
+function toast(m){ var el=document.getElementById('toast'); el.textContent=m||t('buy'); el.classList.add('on'); clearTimeout(toastT); toastT=setTimeout(function(){ el.classList.remove('on'); },1600); }
+/* the loader fills their ring and ticks a row per pick */
+var loadIv=null;
+function runLoader(){ clearInterval(loadIv); var stay=jumped; jumped=false; var p=0, rows=document.querySelectorAll('#steps .k-step'), ring=document.getElementById('ring');
+  rows.forEach(function(r){ r.classList.remove('done'); });
+  loadIv=setInterval(function(){ p=Math.min(100,p+2); ring.style.strokeDashoffset=263.9*(1-p/100); document.getElementById('pct').textContent=p+'%';
+    rows.forEach(function(r,i){ if(p>=(i+1)*100/(rows.length+0.4)) r.classList.add('done'); });
+    if(p>=100){ clearInterval(loadIv); rows.forEach(function(r){ r.classList.add('done'); }); if(!stay&&!demo.on) setTimeout(function(){ if(cur==='loader') go('paywall'); },700); } },56); }
+document.querySelectorAll('[data-cb]').forEach(function(l,i){ l.onclick=function(e){ e.preventDefault(); S.agree[i]=!S.agree[i]; syncScreen(); }; });
+document.getElementById('welBtn').onclick=function(){ S.agree=[true,true]; syncScreen(); go('who'); };
+document.querySelectorAll('.k-wc').forEach(function(b){ b.onclick=function(){ S.who=b.dataset.who; syncScreen(); if(S.who==='kid') toast(t('kidT')); }; });
+document.getElementById('whoBtn').onclick=function(){ go('goals'); };
+document.getElementById('goalBtn').onclick=function(){ if(!S.goals.length) return; S.fi=0; syncScreen(); go('feat'); };
+document.getElementById('featBtn').onclick=function(){ var n=slides().length;
+  if(S.fi<n-1){ S.fi++; var s=scr.feat; s.classList.add('nofx'); s.style.opacity='0'; syncScreen(); requestAnimationFrame(function(){ s.classList.remove('nofx'); s.style.transition='opacity .25s'; s.style.opacity='1'; setTimeout(function(){ s.style.transition=''; },300); }); }
+  else go('loader'); };
+document.querySelectorAll('[data-skip]').forEach(function(b){ b.onclick=function(){ go('loader'); }; });
+document.querySelectorAll('.k-plan').forEach(function(b){ b.onclick=function(){ S.plan=b.dataset.v; syncScreen(); }; });
+document.getElementById('payClose').onclick=function(){ go('offer'); };
+document.getElementById('offDim').onclick=function(){ toast(t('free')); };
+document.getElementById('offNo').onclick=function(){ toast(t('free')); };
+document.getElementById('payCta').onclick=function(){ toast(); };
+document.getElementById('offerCta').onclick=function(){ toast(); };
+function setSeg(id,a,v){ document.querySelectorAll('#'+id+' button').forEach(function(b){ b.classList.toggle('on',b.dataset[a]===v); }); }
+function setTheme(th){ S.theme=th; S0.theme=th; document.getElementById('phoneIn').classList.toggle('dark',th==='dark'); setSeg('segTheme','theme',th); chrome(); }
+function setLang(lg){ S.lang=lg; S0.lang=lg; setSeg('segLang','lang',lg); syncScreen(); }
+document.querySelectorAll('#segTheme button').forEach(function(b){ b.addEventListener('click',function(){ setTheme(b.dataset.theme); }); });
+document.querySelectorAll('#segLang button').forEach(function(b){ b.addEventListener('click',function(){ setLang(b.dataset.lang); }); });
+
+/* ================= the 30-second walkthrough ================= */
+var demo={tok:0,on:false,t0:0,iv:null}, finger=document.getElementById('finger'), phoneIn=document.getElementById('phoneIn');
+function W(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
+function cap(x){ document.getElementById('demoTxt').textContent=x; }
+async function tap(sel,tok){ if(demo.tok!==tok) throw 0; var el=document.querySelector(sel); if(!el) return;
+  var r=el.getBoundingClientRect(), p=phoneIn.getBoundingClientRect(), z=p.width/phoneIn.offsetWidth||1;
+  finger.style.left=((r.left-p.left+r.width/2)/z)+'px'; finger.style.top=((r.top-p.top+r.height/2)/z)+'px';
+  finger.classList.add('show'); await W(380); if(demo.tok!==tok) throw 0;
+  finger.classList.add('press'); await W(120); finger.classList.remove('press'); el.click(); await W(160); if(demo.tok!==tok) throw 0; }
+async function pause(ms,tok){ await W(ms); if(demo.tok!==tok) throw 0; }
+function startDemo(){
+  stopDemo(); var tok=++demo.tok; demo.on=true; demo.t0=Date.now();
+  S=defaults(); S.goals=[]; S.agree=[false,false]; jump('welcome'); jumped=false; document.getElementById('demoCap').classList.remove('hidden');
+  demo.iv=setInterval(function(){ document.getElementById('demoProg').style.width=Math.min(100,(Date.now()-demo.t0)/280)+'%'; },200);
+  (async function(){ try{
+    cap('Your welcome screen, leading with the number a parent can check: 4.6 from 9K App Store ratings.'); await pause(1800,tok); await tap('[data-cb]',tok); await tap('[data-cb]:nth-child(2)',tok); await tap('#welBtn',tok);
+    cap('Parent or kid — your question, unchanged.'); await pause(900,tok); await tap('#whoBtn',tok);
+    cap('Your goal picker is now the only question. This parent picks two goals.'); await pause(1000,tok); await tap('.k-tile[data-v="screen"]',tok); await tap('.k-tile[data-v="sleep"]',tok); await pause(300,tok); await tap('#goalBtn',tok);
+    cap('One of your slides per goal they picked — no yes/no questions repeating the picker.'); await pause(1600,tok); await tap('#featBtn',tok); await pause(1400,tok); await tap('#featBtn',tok);
+    cap('Your loader now ticks off what it is setting up, from their answers.'); await pause(3000,tok); go('paywall');
+    cap('The paywall opens on their goals, with your review and the store rating above the plans.'); await pause(3000,tok);
+    cap('They close it. Your 3-day trial, now as a timeline: free today, cancel before day 3, nothing charged.'); await tap('#payClose',tok); await pause(3200,tok); await tap('#offerCta',tok); await pause(1000,tok);
+    finger.classList.remove('show'); stopDemo();
+  }catch(e){ if(e!==0) console.error(e); } })();
+}
+function stopDemo(){ if(!demo.on) return; demo.tok++; demo.on=false; clearInterval(demo.iv); finger.classList.remove('show','press'); document.getElementById('demoCap').classList.add('hidden');
+  if(!S.goals.length) S.goals=['screen','sleep','where']; syncScreen(); }
+document.getElementById('demoBtn').addEventListener('click',startDemo);
+document.getElementById('demoStop').addEventListener('click',stopDemo);
+phoneIn.addEventListener('pointerdown',function(e){ if(e.isTrusted && demo.on) stopDemo(); });
+</script>
+<script>
+var PANEL={
+welcome:{n:4,t:'One proof number — the one on your store page',
+ hyp:'Try your welcome screen leading with “4.6 out of 5 · 9K ratings on the App Store” instead of “200 000+ 5-star reviews”, <b>because a parent can check the store number in one tap, and the flow’s own numbers disagree with each other</b>: 200 000+ reviews here, “3 millions of caring parents” before the paywall, 100K+ reviews and 1M+ parents on your website.',
+ kept:'The purple gradient, your family illustration with the faded Kids360 lettering, the white stars, the two consent checkboxes and the white Start button.',
+ out:'CR +10–15%'},
+who:{ctx:1,t:'Who’s going to use this device?',
+ kept:'Your screen, unchanged — no idea lands here. It routes a kid’s phone to Alli360, so it stays exactly where it is.'},
+goals:{n:2,t:'Ask once, then show only what they picked',
+ hyp:'Try the goal picker as the only question, <b>because today five yes/no questions follow it and ask the same things again</b> — screen time, locking the device, worrying where they are, sleep and study, websites. Each of those is already a tile here. Eighteen screens before the price become about nine.',
+ kept:'Your six tiles with their illustrations, the round check, “Choose everything that matters to you”, the progress bar with Skip and the Continue button that stays grey until something is picked.',
+ out:'CR +10–15%'},
+feat:{n:2,t:'Ask once, then show only what they picked',
+ hyp:'Try one of your feature slides per picked goal, with “You picked: …” above it, <b>because today every parent sees every slide — location, blocking, schedules, web safety — whatever they asked for</b>. Pick bedtime and screen time, and you see the schedule slide and the 2.5x slide. Nothing else.',
+ kept:'Your illustrations, headlines and sub-lines word for word, the white 2.5x card with its survey note, the progress bar and Skip.',
+ out:'CR +10–15%'},
+loader:{n:3,t:'Let the loader set up what they asked for',
+ hyp:'Try a row per picked goal under your ring — “Daily screen time limits”, “Bedtime schedule”, “Location on a map” — ticking as it fills, <b>because today “Setting things up for you…” runs to 100% without showing a single thing it set up</b>. Every row is a feature from your store listing.',
+ kept:'Your ring with the percentage in the middle, the soft purple glow and “Setting things up for you…”.',
+ out:'CR +10–15%'},
+paywall:{n:1,t:'Open the paywall on the goals they picked',
+ hyp:'Try “Your Kids360 plan is ready” with their picks as ticks above the price, <b>because parents tell you on screen three exactly what they want, and fifteen screens later the paywall says only “Choose your plan”</b>. The ticks are the same rows the loader just set up.',
+ n2:4,
+ hyp2:'Try your App Store rating — 4.6 from 9K ratings — under the review, and move your reviews here from the middle of the flow, <b>because proof does the most work next to the price, and this is the one number a parent can check</b>.',
+ out2:'CR +10–15%',
+ kept:'The X, the white review card with five stars and the reviewer’s name, the two plan cards with the purple border and “Save 50%” tab, the Continue button and “Protected by AppStore. Cancel at any time”. Prices are as on your paywall.',
+ out:'CR +15–20%'},
+offer:{n:5,t:'On close, show how the 3-day trial works',
+ hyp:'Try your “Don’t leave yet” sheet with a three-step timeline — free today, cancel in settings if it isn’t for you, the USD 39.99 year starts on day 3 — <b>because today it says only “Enjoy 3 days for free”, and your own reviews show parents worried about being charged after cancelling</b>. Same trial, same price: just clear about when money moves. Across Utilities apps, annual trials convert to paid better than any other plan — a median 34% in the US (Adapty, Q3 2026).',
+ kept:'The crocodile in the rain, the grabber, “Don’t leave yet”, “Enjoy 3 days for free”, the purple “Try for free” button, the fine print and “I don’t want it”.',
+ out:'CR +5–10%'}
+};
+function outBlock(l,v){ return '<div class="pn-out"><div class="lab">'+l+'</div><div class="v">'+v+'</div></div>'; }
+function paintPanel(){ var d=PANEL[cur]; if(!d) return; var h='';
+  if(d.ctx){ h+='<div class="pn-n ctx">Context · no change proposed</div><h3 class="pn-t">'+d.t+'</h3><div class="pn-kept">'+d.kept+'</div>'; }
+  else { h+='<div class="pn-n">Idea '+d.n+' of 5</div><h3 class="pn-t">'+d.t+'</h3><p class="pn-hyp">'+d.hyp+'</p>'+outBlock('Potential outcome · based on Adapty data',d.out);
+    if(d.hyp2) h+='<div class="pn-sep"></div><div class="pn-n">Idea '+d.n2+' of 5</div><p class="pn-hyp" style="margin-top:12px">'+d.hyp2+'</p>'+outBlock('Potential outcome · based on Adapty data',d.out2);
+    h+='<div class="pn-kept"><b>Your design, unchanged.</b> '+d.kept+'</div>'; }
+  h+='<div class="pn-foot">Ranges are Adapty’s expected effect from tests across 30,000+ subscription apps — not measured lift for Kids360. Prices and claims come from your own published material.</div>';
+  document.getElementById('panel').innerHTML=h; }
+function showView(v){ if(v!=='proto') stopDemo();
+  document.querySelectorAll('.view').forEach(function(x){ x.classList.remove('on'); }); document.getElementById('view-'+v).classList.add('on');
+  document.querySelectorAll('.nav-links button[data-view]').forEach(function(b){ b.classList.toggle('on',b.dataset.view===v); }); window.scrollTo(0,0); }
+document.querySelectorAll('[data-view]').forEach(function(b){ b.addEventListener('click',function(){ showView(b.dataset.view); }); });
+document.querySelectorAll('.idea[data-jump]').forEach(function(b){ b.addEventListener('click',function(){ showView('proto'); jump(b.dataset.jump); }); });
+document.querySelectorAll('[data-demo]').forEach(function(b){ b.addEventListener('click',function(){ showView('proto'); startDemo(); }); });
+buildGrid(); scr.welcome.classList.add('is-active'); syncScreen(); chrome(); paintChips(); paintPanel();
+if(/[?&]open=proto/.test(location.search)) showView('proto');
+</script>
+</body>
+</html>
